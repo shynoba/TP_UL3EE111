@@ -2,6 +2,7 @@ clear all ;
 
 %% Partie 1.1 Définition du système G(p) sous Matlab
 
+
 p = tf('p');
 
 %Déclaration des constantes
@@ -22,11 +23,16 @@ z1 = zero(G);
 
 %Q5
 gain = dcgain(G);
-% en G(0) le gain est infini
+% en G(0) le gain est infini, si on alimente le four en continu et en
+% boucle ouverte à une tension v(t) = 6V 
+
+
 
 %Alimenter le four avec 6V revient Entree V(t)=6*u(t) avec u(t) la fonction echelon unitaire
-%Si on alimente le four avec entrée v(t) = 6V, la température grimperait
-%très rapidement et dépassera notre cahier des charges à 1400°C
+%Si on alimente le four avec entrée 
+
+
+
 
 %Q6
 figure(1);
