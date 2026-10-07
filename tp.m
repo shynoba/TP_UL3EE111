@@ -18,11 +18,12 @@ G = k1/(p*(1+tau1*p));
 p1 = pole(G);
 z1 = zero(G);
 
-% Le système possède 2 poles : [0; 5e-04] et aucun zéro, donc le système est instable car on a un pole positif : 5e-04 >0
+% Le système possède 2 poles : [0; 5e-04] et aucun zéro, le système est
+% marginalement stable
 
 %Q5
 gain = dcgain(G);
-% en G(0) le gain est infini
+% en G(0) le gain est infini, G n'a pas de gain statique fini.
 
 %Alimenter le four avec 6V revient Entree V(t)=6*u(t) avec u(t) la fonction echelon unitaire
 %Si on alimente le four avec entrée v(t) = 6V, la température grimperait
@@ -35,7 +36,7 @@ grid on;
 
 title('Réponse indicielle de G(p) pour une entrée echelon avec amplitude 6V');
 xlabel('Temps');
-ylabel('Augmentation de température');
+ylabel('Augmentation de température (°C)');
 
 
 %% Partie 1.3 :
@@ -61,15 +62,33 @@ figure(2);
 step(H);
 grid on;
 
-title('réponse indicielle de H(p)');
+title('Réponse indicielle de H(p)');
 xlabel('Temps');
-ylabel('Température')
+ylabel('Tension u(t) (Volt)')
 
 GainH = dcgain(H);
 %=0.005
 
+p3=pole(H*G*(1/p));
+p4=pole(K2*G);
 
 %Le temps de réponse à 5%
 %d'un système du premier ordre vaut approximativement 3*tau, dans notre
 %cas tr5% de H est de 6s On le vérifie graphiquement
 
+
+%Q14 , Q15 , Q16
+Kp=10;
+Fbf=minreal(K2* (Kp*G)/(1+Kp*G*K2));
+
+figure(3);
+step(Fbf); hold on;
+step(1-Fbf); hold on;
+xstep= [-5000 0 1 2.5*10^4];
+ystep = [0 1 1 1];
+plot(xstep, ystep, 'green'); hold on;
+
+grid on;
+title('Réponse indicielle de Fbf');
+xlabel('Temps');
+ylabel('Augmentation de température (°C)');
